@@ -18,11 +18,41 @@ class RoomList extends Component {
     });
   }
 
+  createRoom(e) {
+    e.preventDefault();
+    if(!this.state.newRoomName) {return}
+    this.roomsRef.push ({
+      name: this.state.newRoomName
+    });
+    this.setState({ newRoomName: '' })
+  }
+
+  handleChange(e) {
+    this.setState({newRoomName: e.target.value});
+  }
+
   render () {
     return (
-        this.state.rooms.map((room, index) =>
-            <div key={index}>{room.name}</div>
+      <section className='RoomList'>
+        {this.state.rooms.map( (room, index) =>
+        <div key={index}>
+          {room.name}
+        </div>
         )
+        }
+        <div className='newRoom'>
+          {/*Form for creating a room*/}
+          <form onSubmit={(e) => this.createRoom(e)}>
+            <input
+              type="text"
+              placeholder="New Chat Room Name"
+              value={this.state.newRoomName}
+              onChange={(e) => this.handleChange(e)}
+            />
+            <input type="submit"/>
+          </form>
+        </div>
+      </section>
     );
   }
 }
