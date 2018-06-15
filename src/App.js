@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
 import './App.css';
 import * as firebase from 'firebase';
 import RoomList from './components/RoomList';
+import MessageList from './components/MessageList';
 
 
 // Initialize Firebase
@@ -16,25 +16,37 @@ var config = {
 };
 firebase.initializeApp(config);
 
-const initRoomList = (props) => {
-    return (
-        <RoomList
-            firebase={firebase}
-            {...props}
-        />
-    );
-}
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeRoom: ''
+    };
+    this.selectActiveRoom = this.selectActiveRoom.bind(this);
+  }
+
+  selectActiveRoom(room) {
+    this.setState({ activeRoom: room})
+  }
+
+
   render() {
     return (
       <div className="App">
         <header>
-          <Link to='/'>Room List</Link>
           <h1>Bloc Chat</h1>
         </header>
         <main>
-          <Route exact path="/" render={initRoomList} />
+          <RoomList
+            firebase={firebase}
+            activeRoom = {this.state.activeRoom}
+            selectActiveRoom = {this.selectActiveRoom}
+          />
+          <MessageList
+            firebase={firebase}
+            activeRoom = {this.state.activeRoom}
+          />
         </main>
       </div>
     );
