@@ -24,7 +24,7 @@ class MessageList extends Component {
   }
 
   updateDisplayMessages(messageRoom){
-    this.state.messages = this.state.allMessages.filter(message => message.roomId === messageRoom)
+    this.setState( {messages: this.state.allMessages.filter(message => message.roomId === messageRoom)})
   }
 
   render() {
