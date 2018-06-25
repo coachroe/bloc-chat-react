@@ -31,7 +31,7 @@ class MessageList extends Component {
     return (
       <div className = "messageList">
         <h1>Messages</h1>
-        <div> {this.props.activeRoom.name} </div>
+        <h2> {this.props.activeRoom.name} </h2>
         <div>{this.state.messages.map((message, index) =>
           <div key={index}>{message.content}</div>
           )}

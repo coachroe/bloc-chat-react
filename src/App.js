@@ -47,8 +47,7 @@ class App extends Component {
         <main>
           <RoomList
             firebase={firebase}
-            activeRoom = {this.state.activeRoom}
-            selectActiveRoom = {this.selectActiveRoom}
+            selectActiveRoom = { (room) => this.selectActiveRoom(room) }
           />
           <MessageList
             firebase={firebase}
