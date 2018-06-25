@@ -23,10 +23,9 @@ class App extends Component {
     super(props);
     this.state = {
       activeRoom: '',
-      user: ''
+      user: null
     };
-    this.selectActiveRoom = this.selectActiveRoom.bind(this);
-    this.setUser = this.setUser.bind(this);
+    this.roomsRef = firebase.database().ref('rooms');
   }
 
   selectActiveRoom(room) {
@@ -52,11 +51,12 @@ class App extends Component {
           <MessageList
             firebase={firebase}
             activeRoom = {this.state.activeRoom}
+            user={this.state.user}
           />
           <User
             firebase={firebase}
-            setUser={this.setUser}
-            userName={this.state.user}
+            user={this.state.user}
+            setUser={ (user) => this.setUser(user) }
           />
           <h2>Current User: {this.state.user ? this.state.user.displayName : 'Guest'}</h2>
         </main>
